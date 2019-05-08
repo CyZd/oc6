@@ -166,7 +166,8 @@ export default{
             distance:250,
             value:100,
             error:false,
-            option:''
+            option:'',
+            
         }
     },
     created(){

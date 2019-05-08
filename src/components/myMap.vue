@@ -27,13 +27,13 @@ export default{
             this.apiCall("https://opendata.paris.fr/api/records/1.0/search/?dataset=velib-emplacement-des-stations&rows="+10+"&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'xy','name','capacity','dist','Transport','Stations Velib')
         });
         serverBus.listen('showTransportElectriccar',()=>{    
-            this.apiCall("https://opendata.paris.fr/api/records/1.0/search/?dataset=bornes-de-recharge-pour-vehicules-electriques&rows="+10+"&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'geo_point_2d','adresse_rue','tarif_general','dist','Transport','Bornes électriques')
+            this.apiCall("https://opendata.paris.fr/api/records/1.0/search/?dataset=bornes-de-recharge-pour-vehicules-electriques&rows="+10+"&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'geo_point_2d','adresse_rue','tarif_general','dist','Transport','Véhicules électriques')
         });
         serverBus.listen('showTransportParking',()=>{    
             this.apiCall("https://opendata.paris.fr/api/records/1.0/search/?dataset=stationnement-voie-publique-emplacements&facet=regpri&facet=regpar&facet=typsta&facet=arrond&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'geo_point_2d','nomvoie','tar','dist','Transport','Stationnement')
         });
         serverBus.listen('showTransportMetro',()=>{    
-            this.apiCall("https://dataratp.opendatasoft.com/api/records/1.0/search/?dataset=positions-geographiques-des-stations-du-reseau-ratp&facet=stop_name&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'stop_coordinates','stop_name','stop_desc','dist','Transport','Metro')
+            this.apiCall("https://dataratp.opendatasoft.com/api/records/1.0/search/?dataset=positions-geographiques-des-stations-du-reseau-ratp&facet=stop_name&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'stop_coordinates','stop_name','stop_desc','dist','Transport','Bus RATP')
         });
         serverBus.listen('showMedicAll',()=>{    
             
@@ -88,7 +88,16 @@ export default{
             console.log("location mode changed");
             this.locateChoice=data;
         });
-
+        serverBus.listen('hoverAlert',(data)=>{
+            for(var items of this.globalPoints){
+                if(items.options.uniqueId==data[0] && data[1]==true){
+                    //must change color before going live
+                    items.setOpacity(1);
+                }else if(items.options.uniqueId==data[0] && data[1]==false){
+                    items.setOpacity(0.7);
+                }
+            }
+        });
     },
     created(){
         serverBus.listen('copyingMap',(myMap)=>{
@@ -112,9 +121,9 @@ export default{
             //myMap.keyboard.disable();
             //if (map.tap) map.tap.disable();
             
-            L.tileLayer('https://{s}.tile.openstreetmap.fr/osmfr/{z}/{x}/{y}.png', {
+            L.tileLayer('https://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
                         // data origin
-                        attribution: 'données © <a href="//osm.org/copyright">OpenStreetMap</a>/ODbL - rendu <a href="//openstreetmap.fr">OSM France</a>',
+                        attribution: 'données <a href="http://openstreetmap.se/" target="_blank">OpenStreetMap Sweden</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                         minZoom: 1,
                         maxZoom: 20
                     }).addTo(myMap);
@@ -241,6 +250,10 @@ export default{
                 var uniqueId=Math.floor(Math.random()*1000000000);
                 this.globalPoints.push(L.marker(point[firstParam],{request: url, first:point[secondParam],second:point[secondParam],third:point[thirdParam],fourth:point[fourthParam],uniqueId: uniqueId,visible:true, theme:point[fithParam],optionName:point[sixthParam]}).bindPopup(point[secondParam]+"<br>"+point[thirdParam]+"<br>"+point[fourthParam]));
             }
+            for(var i=0;i<this.globalPoints.length;i++){
+                //must be replaced with set icons when going live
+                this.globalPoints[i].setOpacity(0.7);
+            }
         },
         updateMap(table){
             this.layerGroup.clearLayers();
@@ -303,7 +316,7 @@ export default{
             distance:null,
             currentPos:1,
             locateChoice:'GPS',
-            provider:new OpenStreetMapProvider()
+            provider:new OpenStreetMapProvider(),
         }
     },
     components:{

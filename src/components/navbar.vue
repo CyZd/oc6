@@ -20,8 +20,18 @@
       class="navbar-item">
         {{button}}
       </a>
-
-
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-item">Ma position</a>
+                  <div class="navbar-dropdown">
+            <a v-on:click="switchLocation('GPS')" class="navbar-item">
+              Me géolocaliser
+            </a>
+            <hr class="navbar-divider">
+            <a v-on:click="switchLocation('ADRESS')" class="navbar-item">
+              Entrer une adresse
+            </a>
+        </div>
+      </div>
       </div>
     </div>
 
@@ -51,7 +61,8 @@ export default {
             buttons:[
               'Transport',
               'Santé',
-              'Enfance'
+              'Enfance',
+              'Quotidien'
             ],
             group:0
         }
@@ -61,6 +72,9 @@ export default {
         this.group=number;
         serverBus.fire('changeGroup',this.group);
       },
+      switchLocation(data){
+        serverBus.fire('switchLocation',data);
+      }
     },
     mounted(){
         serverBus.fire('changeGroup',this.group);

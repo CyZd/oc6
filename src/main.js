@@ -51,8 +51,8 @@ window.serverBus=new class{
     this.vue.$on(event,callback);
   }
 
-  firePoints(event,data,firstParam,secondParam,thirdParam,fourthParam,url){
-    this.vue.$emit(event,[data,firstParam,secondParam,thirdParam,fourthParam,url]);
+  firePoints(event,data,firstParam,secondParam,thirdParam,fourthParam,url,themeName,optionName){
+    this.vue.$emit(event,[data,firstParam,secondParam,thirdParam,fourthParam,url,themeName,optionName]);
   }
 
 }

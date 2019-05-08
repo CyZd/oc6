@@ -5,7 +5,8 @@
 			<navbar></navbar>
 			<myMap></myMap>
 			<selectpannel></selectpannel>
-			<!-- <infoPannel></infoPannel> -->
+			<messageSystem></messageSystem>
+			<infopannel></infopannel>
 		</body>
 
 	</div>
@@ -15,7 +16,9 @@
 import navbar from "./components/navbar.vue";
 import myMap from "./components/myMap.vue";
 import selectpannel from "./components/selectpannel.vue";
+import infopannel from "./components/infopannel.vue";
 import { ToggleButton } from 'vue-js-toggle-button';
+import messageSystem from "./components/messageSystem.vue";
 
 
 import Vue from 'vue';
@@ -27,7 +30,9 @@ export default{
 		'navbar':navbar,
 		'myMap':myMap,
 		'selectpannel':selectpannel,
-		'VueFlashMessage':VueFlashMessage
+		'infopannel':infopannel,
+		'VueFlashMessage':VueFlashMessage,
+		'messageSystem':messageSystem,
 	}
 };
 

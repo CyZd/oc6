@@ -24,7 +24,7 @@ export default{
             this.messageStack.push(newMessage);
             setTimeout(() => {
                 this.messageStack.shift();
-            }, 1900);
+            }, 800);
         });
     },
     methods:{

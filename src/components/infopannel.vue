@@ -1,10 +1,10 @@
 <template>
 <div>
 
-        <div v-if="catOne!=null" class="container">
-            <article class="message is-success" :class="accordionClasses">
+        <div v-if="catOne.length!=0" class="container">
+            <article class="message is-primary" :class="accordionClasses">
                 <div class="message-header" @click="toggleAccordion">
-                    Résultats
+                    <p>{{catOneName}}</p>
                 </div>
                     <div v-for="item in catOne" class="message-body"
                     @mouseover="hoverAlert(item.options.uniqueId,true)" 
@@ -36,10 +36,10 @@
             </article>
         </div>
 
-        <div v-if="catTwo!=null" class="container">
-            <article class="message is-success" :class="accordionClasses">
+        <div v-if="catTwo.length!=0" class="container">
+            <article class="message is-primary" :class="accordionClasses">
                 <div class="message-header" @click="toggleAccordion">
-                    Résultats
+                    <p>{{catTwoName}}</p>
                 </div>
                     <div v-for="item in catTwo" class="message-body"
                     @mouseover="hoverAlert(item.options.uniqueId,true)" 
@@ -71,10 +71,10 @@
             </article>
         </div>
 
-        <div v-if="catThree!=null" class="container">
-            <article class="message is-success" :class="accordionClasses">
+        <div v-if="catThree.length!=0" class="container">
+            <article class="message is-primary" :class="accordionClasses">
                 <div class="message-header" @click="toggleAccordion">
-                    Résultats
+                    <p>{{catThreeName}}</p>
                 </div>
                     <div v-for="item in catThree" class="message-body"
                     @mouseover="hoverAlert(item.options.uniqueId,true)" 
@@ -106,10 +106,10 @@
             </article>
         </div>
 
-        <div v-if="catFour!=null" class="container">
-            <article class="message is-success" :class="accordionClasses">
+        <div v-if="catFour.length!=0" class="container">
+            <article class="message is-primary" :class="accordionClasses">
                 <div class="message-header" @click="toggleAccordion">
-                    Résultats
+                    <p>{{catFourName}}</p>
                 </div>
                     <div v-for="item in catFour" class="message-body"
                     @mouseover="hoverAlert(item.options.uniqueId,true)" 
@@ -153,10 +153,12 @@ export default {
         serverBus.listen('updatePannel',(results)=>{
             this.results=results;
             this.showGroupResults(this.group,this.results);
+            this.getCatNames();
         });
         serverBus.listen('changeGroup',(group)=>{
             this.group=group;
             this.showGroupResults(this.group,this.results);
+            this.getCatNames();
         });
     },
     methods:{
@@ -167,31 +169,35 @@ export default {
                     case 0:
                         var filterTheme=results.filter(element=>element.options.theme=="Transport");
                         this.toShow=filterTheme.filter(element=>element.options.visible==true);
-                        this.catOne=filterTheme.filter(element=>element.options.optionName=="Stations Velib");
-                        this.catTwo=filterTheme.filter(element=>element.options.optionName=="Véhicules électriques");
-                        this.catThree=filterTheme.filter(element=>element.options.optionName=="Stationnement");
-                        this.catFour=filterTheme.filter(element=>element.options.optionName=="Bus RATP");
+                        this.catOne=this.toShow.filter(element=>element.options.optionName=="Stations Velib");
+                        this.catTwo=this.toShow.filter(element=>element.options.optionName=="Véhicules électriques");
+                        this.catThree=this.toShow.filter(element=>element.options.optionName=="Stationnement");
+                        this.catFour=this.toShow.filter(element=>element.options.optionName=="Bus RATP");
+                        this.getCatNames();
                         break;
                     case 1:
                         var filterTheme=results.filter(element=>element.options.theme=="Santé");
                         this.toShow=filterTheme.filter(element=>element.options.visible==true);
-                        this.catOne=filterTheme.filter(element=>element.options.optionName=="Médecins");
-                        this.catTwo=filterTheme.filter(element=>element.options.optionName=="Pharmacies");
-                        this.catThree=filterTheme.filter(element=>element.options.optionName=="Centres de soin");
+                        this.catOne=this.toShow.filter(element=>element.options.optionName=="Médecins");
+                        this.catTwo=this.toShow.filter(element=>element.options.optionName=="Pharmacies");
+                        this.catThree=this.toShow.filter(element=>element.options.optionName=="Centres de soin");
+                        this.getCatNames();
                         break;
                     case 2:
                         var filterTheme=results.filter(element=>element.options.theme=="Enfance");
                         this.toShow=filterTheme.filter(element=>element.options.visible==true);
-                        this.catOne=filterTheme.filter(element=>element.options.optionName=="Crèches");
-                        this.catTwo=filterTheme.filter(element=>element.options.optionName=="Ecoles");
+                        this.catOne=this.toShow.filter(element=>element.options.optionName=="Crèches");
+                        this.catTwo=this.toShow.filter(element=>element.options.optionName=="Ecoles");
+                        this.getCatNames();
                         break;
                     case 3:
                         var filterTheme=results.filter(element=>element.options.theme=="Quotidien");
                         this.toShow=filterTheme.filter(element=>element.options.visible==true);
-                        this.catOne=filterTheme.filter(element=>element.options.optionName=="Commerces");
-                        this.catTwo=filterTheme.filter(element=>element.options.optionName=="Restaurants");
-                        this.catThree=filterTheme.filter(element=>element.options.optionName=="Action sociale");
-                        this.catFour=filterTheme.filter(element=>element.options.optionName=="Sport et Culture");
+                        this.catOne=this.toShow.filter(element=>element.options.optionName=="Commerces");
+                        this.catTwo=this.toShow.filter(element=>element.options.optionName=="Restaurants");
+                        this.catThree=this.toShow.filter(element=>element.options.optionName=="Action sociale");
+                        this.catFour=this.toShow.filter(element=>element.options.optionName=="Sport et Culture");
+                        this.getCatNames();
                         break;
                 }
             }
@@ -204,6 +210,12 @@ export default {
         },
         toggleAccordion:function(){
             this.isOpen=!this.isOpen;
+        },
+        getCatNames:function(){
+            this.catOne.length!=0 ? this.catOneName=this.catOne[0].options.optionName : null;
+            this.catTwo.length!=0 ? this.catTwoName=this.catTwo[0].options.optionName : null;
+            this.catThree.length!=0 ? this.catThreeName=this.catThree[0].options.optionName : null;
+            this.catFour.length!=0 ? this.catFourName=this.catFour[0].options.optionName : null;
         }
     },
     data(){
@@ -214,9 +226,13 @@ export default {
             hover:false,
             itemRef:null,
             catOne:null,
+            catOneName:null,
             catTwo:null,
+            catTwoName:null,
             catThree:null,
+            catThreeName:null,
             catFour:null,
+            catFourName:null,
             isOpen:true,
         }
     },
@@ -265,8 +281,8 @@ export default {
     height: 0 !important;
 }
 
-article.message.is-success-is-closed{
-
+.message.is-primary{
+    padding:1px !important;
 }
 
 div.level-item.has-text-centered.is-closed{

@@ -3,9 +3,9 @@
 
     	<body>
 			<navbar></navbar>
+			<messageSystem></messageSystem>
 			<myMap></myMap>
 			<selectpannel></selectpannel>
-			<messageSystem></messageSystem>
 			<infopannel></infopannel>
 		</body>
 

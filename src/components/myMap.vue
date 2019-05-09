@@ -94,7 +94,7 @@ export default{
                     //must change color before going live
                     items.setOpacity(1);
                 }else if(items.options.uniqueId==data[0] && data[1]==false){
-                    items.setOpacity(0.7);
+                    items.setOpacity(0.8);
                 }
             }
         });
@@ -164,11 +164,12 @@ export default{
                 console.log("point exists and drawn");
                 this.switchData(this.globalPoints,url,false);
                 this.updateMap(this.globalPoints);
-                
+                serverBus.fire('updatePannel',this.globalPoints);
             }else if(requestAlreadyExist){
                 console.log("points exist but not shown")
                 this.switchData(this.globalPoints,url,true);
                 this.updateMap(this.globalPoints);
+                serverBus.fire('updatePannel',this.globalPoints);
             }
             else{
                 this.ajaxGet(url,function(response){
@@ -252,7 +253,7 @@ export default{
             }
             for(var i=0;i<this.globalPoints.length;i++){
                 //must be replaced with set icons when going live
-                this.globalPoints[i].setOpacity(0.7);
+                this.globalPoints[i].setOpacity(0.8);
             }
         },
         updateMap(table){

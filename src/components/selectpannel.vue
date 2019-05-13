@@ -7,150 +7,93 @@
         <label v-else-if="value==200">500 mètres</label>
         <label v-else-if="value==300">1 500 mètres</label>
     </div>
+
     <div class="field" v-show="group==0">
-        <toggle-button @change="showTransportAll"
+          <toggle-button @change="showTransportAll"
           id="transport-all"
-          :value="false"
+          :value="this.transportAll"
           :width="120"
           :height="40"
           color="#BE3D62"
           :labels="{checked: 'Tout masquer', unchecked: 'Tout afficher'}"
         />
-        <toggle-button @change="showTransportVelib"
-          id="velib"
-          :value="false"
+        <span v-for="(item,i) in buttonTransport">
+          <toggle-button @change="switchButton(item)"
+          :id="item.name"
           :sync="true"
+          :value="item.value"
           :width="120"
           :height="40"
           color="#BE3D62"
-          :labels="{checked: 'Bornes Vélib', unchecked: 'Bornes Vélib'}"
-        />
-        <toggle-button @change="showTransportElectriccar"
-          id="electric"
-          :value="false"
-          :width="120"
-          :height="40"
-          color="#BE3D62"
-          :labels="{checked: 'Recharge V.E.', unchecked: 'Recharge V.E.'}"
-        />
-        <toggle-button @change="showTransportParking"
-          id="parking"
-          :value="false"
-          :width="120"
-          :height="40"
-          color="#BE3D62"
-          :labels="{checked: 'Parking', unchecked: 'Parking'}"
-        />
-        <toggle-button @change="showTransportMetro"
-          id="bus"
-          :value="false"
-          :width="120"
-          :height="40"
-          color="#BE3D62"
-          :labels="{checked: 'Bus RATP', unchecked: 'Bus RATP'}"
-        />
+          :labels="{checked: item.labels, unchecked: item.labels}"
+          />
+        </span>
     </div>
+
     <div class="field" v-show="group==1">
         <toggle-button @change="showMedicAll"
-          id="medicAll"
-          :value="false"
+          id="transport-all"
+          :value="this.medicAll"
           :width="120"
           :height="40"
           color="#BE3D62"
           :labels="{checked: 'Tout masquer', unchecked: 'Tout afficher'}"
         />
-        <toggle-button @change="showMedicMedecin"
-          id="medic"
-          :value="false"
+        <span v-for="(item,i) in buttonMedic">
+          <toggle-button  @change="switchButton(item)"
+          :id="item.name"
+          :sync="true"
+          :value="item.value"
           :width="120"
           :height="40"
           color="#BE3D62"
-          :labels="{checked: 'Médecins', unchecked: 'Médecins'}"
-        />
-        <toggle-button @change="showMedicPharmacies"
-          id="pharma"
-          :value="false"
-          :width="120"
-          :height="40"
-          color="#BE3D62"
-          :labels="{checked: 'Pharmacies', unchecked: 'Pharmacies'}"
-        />
-        <toggle-button @change="showMedicCentresSante"
-          id="medicCenter"
-          :value="false"
-          :width="120"
-          :height="40"
-          color="#BE3D62"
-          :labels="{checked: 'Centres de soin', unchecked: 'Centres de soin'}"
-        />
+          :labels="{checked: item.labels, unchecked: item.labels}"
+          />
+        </span>
     </div>
+
     <div class="field" v-show="group==2">
         <toggle-button @change="showKidsAll"
-          id="kidsAll"
-          :value="false"
+          id="transport-all"
+          :value="this.kidsAll"
           :width="120"
           :height="40"
           color="#BE3D62"
           :labels="{checked: 'Tout masquer', unchecked: 'Tout afficher'}"
         />
-        <toggle-button @change="showKidsCreches"
-          id="nursery"
-          :value="false"
+        <span v-for="(item,i) in buttonKids">
+          <toggle-button  @change="switchButton(item)"
+          :id="item.name"
+          :sync="true"
+          :value="item.value"
           :width="120"
           :height="40"
           color="#BE3D62"
-          :labels="{checked: 'Crèches', unchecked: 'Crèches'}"
-        />
-        <toggle-button @change="showKidsSchool"
-          id="school"
-          :value="false"
-          :width="120"
-          :height="40"
-          color="#BE3D62"
-          :labels="{checked: 'Ecoles', unchecked: 'Ecoles'}"
-        />
+          :labels="{checked: item.labels, unchecked: item.labels}"
+          />
+        </span>
     </div>
+
     <div class="field" v-show="group==3">
-        <toggle-button @change=""
-          id="changed-font"
-          :value="false"
+        <toggle-button @change="showEverydayAll"
+          id="transport-all"
+          :value="this.everydayAll"
           :width="120"
           :height="40"
           color="#BE3D62"
           :labels="{checked: 'Tout masquer', unchecked: 'Tout afficher'}"
         />
-        <toggle-button @change=""
-          id="everyday"
-          :value="false"
+        <span v-for="(item,i) in buttonEveryday">
+          <toggle-button  @change="switchButton(item)"
+          :id="item.name"
+          :sync="true"
+          :value="item.value"
           :width="120"
           :height="40"
           color="#BE3D62"
-          :labels="{checked: 'Commerces', unchecked: 'Commerces'}"
-        />
-        <toggle-button @change=""
-          id="restaurant"
-          :value="false"
-          :width="120"
-          :height="40"
-          color="#BE3D62"
-          :labels="{checked: 'Restaurants', unchecked: 'Restaurants'}"
-        />
-        <toggle-button @change=""
-          id="social"
-          :value="false"
-          :width="120"
-          :height="40"
-          color="#BE3D62"
-          :labels="{checked: 'Action sociale', unchecked: 'Action sociale'}"
-        />
-          <toggle-button @change=""
-          id="sportCulture"
-          :value="false"
-          :width="120"
-          :height="40"
-          color="#BE3D62"
-          :labels="{checked: 'Sport et Culture', unchecked: 'Sport et Culture'}"
-        />
+          :labels="{checked: item.labels, unchecked: item.labels}"
+          />
+        </span>
     </div>
 </div>
 </template>
@@ -167,7 +110,31 @@ export default{
             value:100,
             error:false,
             option:'',
-            
+            transportAll:false,
+            medicAll:false,
+            kidsAll:false,
+            everydayAll:false,
+            buttonTransport:[
+              {category:'Transport',name:'Stations Velib',value:false,color:'#BE3D62',labels:'Bornes Vélib',method:'showTransportVelib'},
+              {category:'Transport',name:'Véhicules électriques',value:false,color:'#BE3D62',labels:'Recharge V.E.',method:'showTransportElectriccar'},
+              {category:'Transport',name:'Stationnement',value:false,color:'#BE3D62',labels:'Parking',method:'showTransportParking'},
+              {category:'Transport',name:'Bus RATP',value:false,color:'#BE3D62',labels:'Bus RATP',method:'showTransportMetro'},
+            ],
+            buttonMedic:[
+              {category:'Santé',name:'Medecins',value:false,color:'#BE3D62',labels:'Médecins'},
+              {category:'Santé',name:'Pharmacies',value:false,color:'#BE3D62',labels:'Pharmacies'},
+              {category:'Santé',name:'Centres de soin',value:false,color:'#BE3D62',labels:'Centres de soin'},
+            ],
+            buttonKids:[
+              {category:'Enfance',name:'Crèches',value:false,color:'#BE3D62',labels:'Crèches'},
+              {category:'Enfance',name:'Ecoles',value:false,color:'#BE3D62',labels:'Ecoles'},
+            ],
+            buttonEveryday:[
+              {category:'Quotidien',name:'Commerces',value:false,color:'#BE3D62',labels:'Commerces'},
+              {category:'Quotidien',name:'Restaurants',value:false,color:'#BE3D62',labels:'Restaurants'},
+              {category:'Quotidien',name:'Action Sociale',value:false,color:'#BE3D62',labels:'Action sociale'},
+              {category:'Quotidien',name:'Sport Culture',value:false,color:'#BE3D62',labels:'Sport et Culture'},
+            ],
         }
     },
     created(){
@@ -178,43 +145,107 @@ export default{
         serverBus.listen('changeGroup',(group)=>{
             this.group=group;
         });
+        serverBus.listen('buttonOff',(data)=>{
+          switch(data[0]){
+            case 'Transport':
+              for(var items of this.buttonTransport){
+                if(items.name==data[1]){
+                  items.value=false;
+                  this.transportAll=false;
+                }
+              }
+              break;
+            case 'Santé':
+              for(var items of this.buttonMedic){
+                if(items.name==data[1]){
+                  items.value=false;
+                  this.medicAll=false;
+                }
+              }
+              break;
+            case 'Enfance':
+              for(var items of this.buttonKids){
+                if(items.name==data[1]){
+                  items.value=false;
+                  this.kidsAll=false;
+                }
+              }
+              break;
+            case 'Quotidien':
+              for(var items of this.buttonEveryday){
+                if(items.name==data[1]){
+                  items.value=false;
+                  this.everydayAll=false;
+                }
+              }
+              break;
+          }
+            
+        });
     },
     methods:{
+        switchButton:function(item){
+            item.value=!item.value;
+            serverBus.fire(item.method);
+        },
+        forceSwitchButton:function(item,bool){
+            item.value=bool;
+        },
         showTransportAll:function(){
-            serverBus.fire('showTransportAll',);
-        },
-        showTransportVelib:function(){
-            serverBus.fire('showTransportVelib');
-        },
-        showTransportElectriccar:function(){
-            serverBus.fire('showTransportElectriccar');
-        },
-        showTransportParking:function(){
-            serverBus.fire('showTransportParking');
-        },
-        showTransportMetro:function(){
-            serverBus.fire('showTransportMetro');
+            if(!this.transportAll){
+              this.transportAll=true;
+              for(var item of this.buttonTransport){
+                this.forceSwitchButton(item,true);
+                serverBus.fire(item.method);
+              }
+            }else{
+              this.transportAll=false;
+              for(var item of this.buttonTransport){
+                item.value=false;
+              }
+            }
         },
         showMedicAll:function(){
-            serverBus.fire('showMedicAll');
-        },
-        showMedicMedecin:function(){
-            serverBus.fire('showMedicMedecin');
-        },
-        showMedicPharmacies:function(){
-            serverBus.fire('showMedicPharmacies');
-        },
-        showMedicCentresSante:function(){
-            serverBus.fire('showMedicCentresSante');
+            if(!this.medicAll){
+              this.medicAll=true;
+              for(var item of this.buttonMedic){
+                this.forceSwitchButton(item,true);
+                serverBus.fire(item.method);
+              }
+            }else{
+              this.medicAll=false;
+              for(var item of this.buttonMedic){
+                item.value=false;
+              }
+            }
         },
         showKidsAll:function(){
-            serverBus.fire('showKidsAll');
+            if(!this.kidsAll){
+              this.kidsAll=true;
+              for(var item of this.buttonKids){
+                this.forceSwitchButton(item,true);
+                serverBus.fire(item.method);
+              }
+            }else{
+              this.kidsAll=false;
+              for(var item of this.buttonKids){
+                item.value=false;
+              }
+            }
         },
-        showKidsCreches:function(){
-            serverBus.fire('showKidsshowKidsCreches');
-        },
-        showKidsSchool:function(){
-            serverBus.fire('showKidsSchool');
+        showEverydayAll:function(){
+            if(!this.everydayAll){
+              this.everydayAll=true;
+              for(var item of this.buttonEveryday){
+                this.forceSwitchButton(item,true);
+                serverBus.fire(item.method);
+              }
+            }else{
+              this.everydayAll=false;
+              for(var item of this.buttonEveryday){
+                item.value=false;
+              }
+            }
         },
         getRangeValue(){
             this.value=document.getElementById("distSlider").value; 

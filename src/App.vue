@@ -19,11 +19,16 @@ import selectpannel from "./components/selectpannel.vue";
 import infopannel from "./components/infopannel.vue";
 import { ToggleButton } from 'vue-js-toggle-button';
 import messageSystem from "./components/messageSystem.vue";
-
+import {BadgerAccordion, BadgerAccordionItem} from 'vue-badger-accordion';
 
 import Vue from 'vue';
+
+
 import VueFlashMessage from 'vue-flash-message';
 Vue.use(VueFlashMessage);
+
+Vue.component('BadgerAccordion', BadgerAccordion);
+Vue.component('BadgerAccordionItem', BadgerAccordionItem);
 
 export default{
 	components:{

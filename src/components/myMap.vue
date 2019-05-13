@@ -178,6 +178,7 @@ export default{
                     var results=JSON.parse(response);
                     if(results.nhits==0){
                         serverBus.fire('alertMessage',['Aucun résultat pour la recherche: ',optionName]);
+                        serverBus.fire('buttonOff',[themeName,optionName]);
                         return;
                     }else{
                         serverBus.firePoints('treatResult',results.records,firstParam,secondParam,thirdParam,fourthParam,url,themeName,optionName);

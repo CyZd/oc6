@@ -24,7 +24,7 @@ export default{
             this.messageStack.push(newMessage);
             setTimeout(() => {
                 this.messageStack.shift();
-            }, 800);
+            }, 1800);
         });
     },
     methods:{
@@ -34,5 +34,7 @@ export default{
 </script>
 
 <style>
+.notification{
 
+}
 </style>

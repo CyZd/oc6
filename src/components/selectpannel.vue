@@ -11,6 +11,7 @@
     <div class="field" v-show="group==0">
           <toggle-button @change="showTransportAll"
           id="transport-all"
+          :sync="true"
           :value="this.transportAll"
           :width="120"
           :height="40"
@@ -33,6 +34,7 @@
     <div class="field" v-show="group==1">
         <toggle-button @change="showMedicAll"
           id="transport-all"
+          :sync="true"
           :value="this.medicAll"
           :width="120"
           :height="40"
@@ -55,6 +57,7 @@
     <div class="field" v-show="group==2">
         <toggle-button @change="showKidsAll"
           id="transport-all"
+          :sync="true"
           :value="this.kidsAll"
           :width="120"
           :height="40"
@@ -77,6 +80,7 @@
     <div class="field" v-show="group==3">
         <toggle-button @change="showEverydayAll"
           id="transport-all"
+          :sync="true"
           :value="this.everydayAll"
           :width="120"
           :height="40"
@@ -121,19 +125,20 @@ export default{
               {category:'Transport',name:'Bus RATP',value:false,color:'#BE3D62',labels:'Bus RATP',method:'showTransportMetro'},
             ],
             buttonMedic:[
-              {category:'Santé',name:'Medecins',value:false,color:'#BE3D62',labels:'Médecins'},
-              {category:'Santé',name:'Pharmacies',value:false,color:'#BE3D62',labels:'Pharmacies'},
-              {category:'Santé',name:'Centres de soin',value:false,color:'#BE3D62',labels:'Centres de soin'},
+              {category:'Santé',name:'Medecins',value:false,color:'#BE3D62',labels:'Médecins',method:'showMedicMedecin'},
+              {category:'Santé',name:'Pharmacies',value:false,color:'#BE3D62',labels:'Pharmacies',method:'showMedicPharmacies'},
+              {category:'Santé',name:'Centres de soin',value:false,color:'#BE3D62',labels:'Centres de soin',method:'showMedicCentresSante'},
             ],
             buttonKids:[
-              {category:'Enfance',name:'Crèches',value:false,color:'#BE3D62',labels:'Crèches'},
-              {category:'Enfance',name:'Ecoles',value:false,color:'#BE3D62',labels:'Ecoles'},
+              {category:'Enfance',name:'Crèches',value:false,color:'#BE3D62',labels:'Crèches',method:'showKidsCreches'},
+              {category:'Enfance',name:'Ecoles',value:false,color:'#BE3D62',labels:'Ecoles',method:'showKidsSchool'},
             ],
             buttonEveryday:[
-              {category:'Quotidien',name:'Commerces',value:false,color:'#BE3D62',labels:'Commerces'},
-              {category:'Quotidien',name:'Restaurants',value:false,color:'#BE3D62',labels:'Restaurants'},
-              {category:'Quotidien',name:'Action Sociale',value:false,color:'#BE3D62',labels:'Action sociale'},
-              {category:'Quotidien',name:'Sport Culture',value:false,color:'#BE3D62',labels:'Sport et Culture'},
+              {category:'Quotidien',name:'Commerces',value:false,color:'#BE3D62',labels:'Commerces',method:'showCommerce'},
+              {category:'Quotidien',name:'Restaurants',value:false,color:'#BE3D62',labels:'Restaurants',method:'showRestaurant'},
+              {category:'Quotidien',name:'Action Sociale',value:false,color:'#BE3D62',labels:'Action sociale',method:'showSocialAction'},
+              {category:'Quotidien',name:'Sport',value:false,color:'#BE3D62',labels:'Installation de sport',method:'showSport'},
+              {category:'Quotidien',name:'Culture',value:false,color:'#BE3D62',labels:'Où sortir?',method:'showCulture'},
             ],
         }
     },
@@ -151,7 +156,6 @@ export default{
               for(var items of this.buttonTransport){
                 if(items.name==data[1]){
                   items.value=false;
-                  this.transportAll=false;
                 }
               }
               break;
@@ -159,7 +163,6 @@ export default{
               for(var items of this.buttonMedic){
                 if(items.name==data[1]){
                   items.value=false;
-                  this.medicAll=false;
                 }
               }
               break;
@@ -167,7 +170,6 @@ export default{
               for(var items of this.buttonKids){
                 if(items.name==data[1]){
                   items.value=false;
-                  this.kidsAll=false;
                 }
               }
               break;
@@ -175,7 +177,6 @@ export default{
               for(var items of this.buttonEveryday){
                 if(items.name==data[1]){
                   items.value=false;
-                  this.everydayAll=false;
                 }
               }
               break;
@@ -198,10 +199,13 @@ export default{
                 this.forceSwitchButton(item,true);
                 serverBus.fire(item.method);
               }
-            }else{
+            }
+            else{
               this.transportAll=false;
               for(var item of this.buttonTransport){
+                this.forceSwitchButton(item,false);
                 item.value=false;
+                serverBus.fire(item.method);
               }
             }
         },
@@ -215,7 +219,9 @@ export default{
             }else{
               this.medicAll=false;
               for(var item of this.buttonMedic){
+                this.forceSwitchButton(item,false);
                 item.value=false;
+                serverBus.fire(item.method);
               }
             }
         },
@@ -229,7 +235,9 @@ export default{
             }else{
               this.kidsAll=false;
               for(var item of this.buttonKids){
+                this.forceSwitchButton(item,false);
                 item.value=false;
+                serverBus.fire(item.method);
               }
             }
         },
@@ -243,7 +251,9 @@ export default{
             }else{
               this.everydayAll=false;
               for(var item of this.buttonEveryday){
+                this.forceSwitchButton(item,false);
                 item.value=false;
+                serverBus.fire(item.method);
               }
             }
         },

@@ -20,9 +20,6 @@ export default{
         serverBus.listen('changeCircleRange',(distance)=>{
             this.redrawCircleMap(distance);
         });
-        serverBus.listen('showTransportAll',()=>{    
-            
-        });
         serverBus.listen('showTransportVelib',()=>{    
             this.apiCall("https://opendata.paris.fr/api/records/1.0/search/?dataset=velib-emplacement-des-stations&rows="+10+"&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'xy','name','capacity','dist','Transport','Stations Velib')
         });
@@ -35,9 +32,6 @@ export default{
         serverBus.listen('showTransportMetro',()=>{    
             this.apiCall("https://dataratp.opendatasoft.com/api/records/1.0/search/?dataset=positions-geographiques-des-stations-du-reseau-ratp&facet=stop_name&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'stop_coordinates','stop_name','stop_desc','dist','Transport','Bus RATP')
         });
-        serverBus.listen('showMedicAll',()=>{    
-            
-        });
         serverBus.listen('showMedicMedecin',()=>{    
             this.apiCall("https://public.opendatasoft.com/api/records/1.0/search/?dataset=donnees-sur-les-medecins-accredites&facet=libelle_long_de_la_specialite_du_medecin&facet=date_d_accreditation_du_medecin&facet=nom_du_departement&facet=statut_d_exercice&facet=nom_region&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'geom_x_y','nom_du_medecin','libelle_long_de_la_specialite_du_medecin','dist','Santé','Medecins')
         });
@@ -47,14 +41,28 @@ export default{
         serverBus.listen('showMedicCentresSante',()=>{    
             this.apiCall("https://opendata.paris.fr/api/records/1.0/search/?dataset=consultations_des_centres_de_sante&facet=nom_de_lactivite&facet=specialite&facet=adresse_code_postal&facet=adresse_ville&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'geo_point_2d','c_rs','c_adresse','dist','Santé','Centres de soin')
         });
-        serverBus.listen('showKidsAll',()=>{    
-            
-        });
         serverBus.listen('showKidsCreches',()=>{    
             this.apiCall("https://public.opendatasoft.com/api/records/1.0/search/?dataset=equipement-ponctuel-petite-enfance&facet=l_ep_maj&facet=l_ep_min&facet=c_suf1&facet=c_liaison&facet=l_voie&facet=b_public&facet=d_annee_cr&facet=lib_ql1&facet=val_qn1&facet=n_sq_ee&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'geo_point_2d','l_ep_maj','','dist','Enfance','Crèches')
         });
         serverBus.listen('showKidsSchool',()=>{    
             this.apiCall("https://opendata.paris.fr/api/records/1.0/search/?dataset=etablissements-scolaires&rows=20&facet=id_projet&facet=arr_libelle&facet=arr_insee",'geo_point_2d','adresse','arr_libelle','dist','Enfance','Ecoles')
+        });
+        serverBus.listen('showCommerce',()=>{    
+            this.apiCall("https://opendata.paris.fr/api/records/1.0/search/?dataset=commercesparis&facet=arro&facet=situation&facet=libact&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'geometry.coordinates','libact','adresse_complete','dist','Quotidien','Commerces')
+        });
+        serverBus.listen('showRestaurant',()=>{    
+            this.apiCall("https://opendata.paris.fr/api/records/1.0/search/?dataset=commercesparis&facet=arro&facet=situation&facet=libact&refine.libact=Brasserie+-+Restauration+continue+sans+tabac&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'geometry.coordinates','situation','adresse_complete','dist','Quotidien','Restaurants')
+        });
+        serverBus.listen('showSocialAction',()=>{    
+            this.apiCall("https://data.iledefrance.fr/api/records/1.0/search/?dataset=finess&facet=libdepartement&facet=libcategetab&exclude.libcategetab=Pharmacie+d%27Officine&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'geo','rslongue','adresse','dist','Quotidien','Action sociale')
+        });
+        serverBus.listen('showSport',()=>{    
+            this.apiCall("https://data.iledefrance.fr/api/records/1.0/search/?dataset=20170419_res_fichesequipementsactivites&facet=deplib&facet=actlib&facet=actnivlib&facet=equipementtypelib&facet=naturesollib&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'equgpsy_x','insnom','equipementtypelib','dist','Quotidien','Sport')
+        });
+        serverBus.listen('showCulture',()=>{    
+            this.apiCall("https://data.iledefrance.fr/api/records/1.0/search/?dataset=carte-des-bibliotheques&facet=departement&facet=ville&facet=annee_s_subvention_region&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'wgs84','nom_structure','adresse','dist','Quotidien','Bibliothèques');
+            this.apiCall("https://data.iledefrance.fr/api/records/1.0/search/?dataset=liste_des_etablissements_publics_culture&facet=ville&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'wgs84','structure','adresse','dist','Quotidien','Etablissements culturels');
+            this.apiCall("https://data.iledefrance.fr/api/records/1.0/search/?dataset=les_salles_de_cinemas_en_ile-de-france&facet=dep&facet=adrcommune&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'wgs84','enseigne','adr','dist','Quotidien','Cinémas');
         });
         serverBus.listen('treatResult',(data)=>{
             var pointsTable=[];

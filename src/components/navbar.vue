@@ -15,38 +15,28 @@
   <div id="navbarBasicExample" class="navbar-menu">
     <div class="navbar-start">
       <a 
-      v-for="button in buttons" 
-      v-on:click="changeGroup(buttons.indexOf(button))"
-      class="navbar-item">
-        {{button}}
+        v-for="button in buttons" 
+        v-on:click="changeGroup(buttons.indexOf(button))"
+        class="navbar-item">
+          {{button}}
       </a>
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-item">Ma position</a>
-                  <div class="navbar-dropdown">
-            <a v-on:click="switchLocation('GPS')" class="navbar-item">
-              Me géolocaliser
-            </a>
-            <hr class="navbar-divider">
-            <a v-on:click="switchLocation('ADRESS')" class="navbar-item">
-              Entrer une adresse
-            </a>
-        </div>
-      </div>
-      </div>
     </div>
-
-    <div class="navbar-end">
-      <div class="navbar-item">
-        <div class="buttons">
-          <!-- <a class="button is-primary">
-            <strong>S'inscrire</strong>
-          </a>
-          <a class="button is-light">
-            Se connecter
-          </a> -->
-        </div>
-      </div>
+    <div class="navbar-item">
+          <toggle-button @change="switchLocation()"
+          id="gpsmod"
+          :sync="false"
+          :value="false"
+          :width="100"
+          :height="30"
+          :color="{checked: '#32cd32', unchecked: '#5daaec'}"
+          :labels="{checked: 'GPS actif', unchecked: 'GPS éteint'}"
+        />
     </div>
+    <div class="navbar-item">
+        <a v-if="GPS==false" class="navbar-item">Entrez une adresse</a>
+        <a v-else class="navbar-item">Vous êtes géolocalisé</a>
+    </div>
+      
   </div>
 </nav>
 
@@ -89,7 +79,8 @@ export default {
               'Enfance',
               'Quotidien'
             ],
-            group:0
+            group:0,
+            GPS:false,
         }
     },
     methods:{
@@ -97,8 +88,9 @@ export default {
         this.group=number;
         serverBus.fire('changeGroup',this.group);
       },
-      switchLocation(data){
-        serverBus.fire('switchLocation',data);
+      switchLocation(){
+        this.GPS=!this.GPS;
+        serverBus.fire('switchLocation',this.GPS);
       }
     },
     mounted(){
@@ -106,3 +98,15 @@ export default {
     }
 }
 </script>
+
+<style>
+.navbar:hover{
+    filter: drop-shadow(4px 8px 4px #9b9b9b);
+}
+
+.navbar{
+  	position:sticky!important;
+	  position: -webkit-sticky!important;
+}
+
+</style>

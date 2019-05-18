@@ -1,8 +1,8 @@
 <template>
 <div>
-    <div class="container is-fluid">
+    <div class="container is-fluid" id="sliderContainer">
         <label for="distance"><h3>Distance</h3></label>
-        <input id="distSlider" v-on:click="getRangeValue" name="distance" class="slider is-fullwidth is-info" step="100" min="100" max="300" value="100" type="range">
+        <input id="distSlider" v-on:click="getRangeValue" name="distance" class="slider is-fullwidth is-info is-medium is-circle" step="100" min="100" max="300" value="100" type="range">
         <label v-if="value==100">250 mètres</label>
         <label v-else-if="value==200">500 mètres</label>
         <label v-else-if="value==300">1 500 mètres</label>
@@ -10,12 +10,12 @@
 
     <div class="field" v-show="group==0">
           <toggle-button @change="showTransportAll"
-          id="transport-all"
+          id="switchTransport"
           :sync="true"
           :value="this.transportAll"
           :width="120"
           :height="40"
-          color="#BE3D62"
+          color="#f5c421"
           :labels="{checked: 'Tout masquer', unchecked: 'Tout afficher'}"
         />
         <span v-for="(item,i) in buttonTransport">
@@ -25,7 +25,7 @@
           :value="item.value"
           :width="120"
           :height="40"
-          color="#BE3D62"
+          color="#f5c421"
           :labels="{checked: item.labels, unchecked: item.labels}"
           />
         </span>
@@ -33,12 +33,12 @@
 
     <div class="field" v-show="group==1">
         <toggle-button @change="showMedicAll"
-          id="transport-all"
+          id="switchMedic"
           :sync="true"
           :value="this.medicAll"
           :width="120"
           :height="40"
-          color="#BE3D62"
+          color="#32cd32"
           :labels="{checked: 'Tout masquer', unchecked: 'Tout afficher'}"
         />
         <span v-for="(item,i) in buttonMedic">
@@ -48,7 +48,7 @@
           :value="item.value"
           :width="120"
           :height="40"
-          color="#BE3D62"
+          color="#32cd32"
           :labels="{checked: item.labels, unchecked: item.labels}"
           />
         </span>
@@ -56,12 +56,12 @@
 
     <div class="field" v-show="group==2">
         <toggle-button @change="showKidsAll"
-          id="transport-all"
+          id="switchKids"
           :sync="true"
           :value="this.kidsAll"
           :width="120"
           :height="40"
-          color="#BE3D62"
+          color="#f60cd2"
           :labels="{checked: 'Tout masquer', unchecked: 'Tout afficher'}"
         />
         <span v-for="(item,i) in buttonKids">
@@ -71,7 +71,7 @@
           :value="item.value"
           :width="120"
           :height="40"
-          color="#BE3D62"
+          color="#f60cd2"
           :labels="{checked: item.labels, unchecked: item.labels}"
           />
         </span>
@@ -79,22 +79,22 @@
 
     <div class="field" v-show="group==3">
         <toggle-button @change="showEverydayAll"
-          id="transport-all"
+          id="switchEvery"
           :sync="true"
           :value="this.everydayAll"
           :width="120"
           :height="40"
-          color="#BE3D62"
+          color="#f60c34"
           :labels="{checked: 'Tout masquer', unchecked: 'Tout afficher'}"
         />
         <span v-for="(item,i) in buttonEveryday">
           <toggle-button  @change="switchButton(item)"
           :id="item.name"
-          :sync="true"
+          :sync="false"
           :value="item.value"
           :width="120"
           :height="40"
-          color="#BE3D62"
+          color="#f60c34"
           :labels="{checked: item.labels, unchecked: item.labels}"
           />
         </span>
@@ -125,7 +125,7 @@ export default{
               {category:'Transport',name:'Bus RATP',value:false,color:'#BE3D62',labels:'Bus RATP',method:'showTransportMetro'},
             ],
             buttonMedic:[
-              {category:'Santé',name:'Medecins',value:false,color:'#BE3D62',labels:'Médecins',method:'showMedicMedecin'},
+              // {category:'Santé',name:'Medecins',value:false,color:'#BE3D62',labels:'Médecins',method:'showMedicMedecin'},
               {category:'Santé',name:'Pharmacies',value:false,color:'#BE3D62',labels:'Pharmacies',method:'showMedicPharmacies'},
               {category:'Santé',name:'Centres de soin',value:false,color:'#BE3D62',labels:'Centres de soin',method:'showMedicCentresSante'},
             ],
@@ -137,7 +137,7 @@ export default{
               {category:'Quotidien',name:'Commerces',value:false,color:'#BE3D62',labels:'Commerces',method:'showCommerce'},
               {category:'Quotidien',name:'Restaurants',value:false,color:'#BE3D62',labels:'Restaurants',method:'showRestaurant'},
               {category:'Quotidien',name:'Action Sociale',value:false,color:'#BE3D62',labels:'Action sociale',method:'showSocialAction'},
-              {category:'Quotidien',name:'Sport',value:false,color:'#BE3D62',labels:'Installation de sport',method:'showSport'},
+              {category:'Quotidien',name:'Sport',value:false,color:'#BE3D62',labels:'Sport',method:'showSport'},
               {category:'Quotidien',name:'Culture',value:false,color:'#BE3D62',labels:'Où sortir?',method:'showCulture'},
             ],
         }
@@ -183,6 +183,9 @@ export default{
           }
             
         });
+        serverBus.listen('setToZero',()=>{
+          this.setToZero();
+        })
     },
     methods:{
         switchButton:function(item){
@@ -257,6 +260,28 @@ export default{
               }
             }
         },
+        setToZero(){
+          this.transportAll=false;
+          this.medicAll=false;
+          this.kidsAll=false;
+          this.everydayAll=false;
+          for(var item of this.buttonTransport){
+                this.forceSwitchButton(item,false);
+                item.value=false;
+          }
+          for(var item of this.buttonMedic){
+                this.forceSwitchButton(item,false);
+                item.value=false;
+          }
+          for(var item of this.buttonKids){
+                this.forceSwitchButton(item,false);
+                item.value=false;
+          }
+          for(var item of this.buttonEveryday){
+                this.forceSwitchButton(item,false);
+                item.value=false;
+          }
+        },
         getRangeValue(){
             this.value=document.getElementById("distSlider").value; 
             if(this.value==100){
@@ -279,4 +304,24 @@ export default{
   margin:5px;
 }
 
+#distSlider{
+  width:80%;
+  margin-left:auto;
+  margin-right:auto;
+}
+
+.field{
+  filter: drop-shadow(3px 1px 4px #9b9b9b);
+}
+
+#sliderContainer:hover{
+  filter: drop-shadow(15px 9px 9px #9b9b9b);
+}
+
+@media screen and (max-width: 640px) {
+    .span{
+        height: 30px!important;
+        width: 100px!important;
+    }
+}
 </style>

@@ -1,6 +1,8 @@
 <template>
-    <div class="container is-fluid" id="myMap">
+    <div>
+        <div class="container is-fluid" id="myMap" ref="map"></div>
     </div>
+
 </template>
 
 <script>
@@ -21,10 +23,10 @@ export default{
             this.redrawCircleMap(distance);
         });
         serverBus.listen('showTransportVelib',()=>{    
-            this.apiCall("https://opendata.paris.fr/api/records/1.0/search/?dataset=velib-emplacement-des-stations&rows="+10+"&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'xy','name','capacity','dist','Transport','Stations Velib')
+            this.apiCall("https://opendata.paris.fr/api/records/1.0/search/?dataset=velib-emplacement-des-stations&rows="+20+"&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'xy','name','capacity','dist','Transport','Stations Velib')
         });
         serverBus.listen('showTransportElectriccar',()=>{    
-            this.apiCall("https://opendata.paris.fr/api/records/1.0/search/?dataset=bornes-de-recharge-pour-vehicules-electriques&rows="+10+"&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'geo_point_2d','adresse_rue','tarif_general','dist','Transport','Véhicules électriques')
+            this.apiCall("https://opendata.paris.fr/api/records/1.0/search/?dataset=bornes-de-recharge-pour-vehicules-electriques&rows="+20+"&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'geo_point_2d','adresse_rue','tarif_general','dist','Transport','Véhicules électriques')
         });
         serverBus.listen('showTransportParking',()=>{    
             this.apiCall("https://opendata.paris.fr/api/records/1.0/search/?dataset=stationnement-voie-publique-emplacements&facet=regpri&facet=regpar&facet=typsta&facet=arrond&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'geo_point_2d','nomvoie','tar','dist','Transport','Stationnement')
@@ -33,7 +35,7 @@ export default{
             this.apiCall("https://dataratp.opendatasoft.com/api/records/1.0/search/?dataset=positions-geographiques-des-stations-du-reseau-ratp&facet=stop_name&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'stop_coordinates','stop_name','stop_desc','dist','Transport','Bus RATP')
         });
         serverBus.listen('showMedicMedecin',()=>{    
-            this.apiCall("https://public.opendatasoft.com/api/records/1.0/search/?dataset=donnees-sur-les-medecins-accredites&facet=libelle_long_de_la_specialite_du_medecin&facet=date_d_accreditation_du_medecin&facet=nom_du_departement&facet=statut_d_exercice&facet=nom_region&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'geom_x_y','nom_du_medecin','libelle_long_de_la_specialite_du_medecin','dist','Santé','Medecins')
+            this.apiCall("https://data.iledefrance.fr/api/records/1.0/search/?dataset=base-sirene-v3-ss&facet=etablissementsiege&facet=libellecommuneetablissement&facet=etatadministratifetablissement&facet=nomenclatureactiviteprincipaleetablissement&facet=caractereemployeuretablissement&facet=departementetablissement&facet=regionetablissement&facet=sectionetablissement&facet=classeetablissement&facet=statutdiffusionunitelegale&facet=unitepurgeeunitelegale&facet=sexeunitelegale&facet=categorieentreprise&facet=sectionunitelegale&facet=classeunitelegale&facet=naturejuridiqueunitelegale&refine.classeunitelegale=Activite+des+medecins+generalistes&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'geolocetablissement','prenomusuelunitelegale','nomunitelegale','dist','Santé','Medecins')
         });
         serverBus.listen('showMedicPharmacies',()=>{    
             this.apiCall("https://data.iledefrance.fr/api/records/1.0/search/?dataset=carte-des-pharmacies-dile-de-france&facet=libdepartement&facet=commune&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'wgs84','rs','telephone','dist','Santé','Pharmacies')
@@ -45,13 +47,16 @@ export default{
             this.apiCall("https://public.opendatasoft.com/api/records/1.0/search/?dataset=equipement-ponctuel-petite-enfance&facet=l_ep_maj&facet=l_ep_min&facet=c_suf1&facet=c_liaison&facet=l_voie&facet=b_public&facet=d_annee_cr&facet=lib_ql1&facet=val_qn1&facet=n_sq_ee&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'geo_point_2d','l_ep_maj','','dist','Enfance','Crèches')
         });
         serverBus.listen('showKidsSchool',()=>{    
-            this.apiCall("https://opendata.paris.fr/api/records/1.0/search/?dataset=etablissements-scolaires&rows=20&facet=id_projet&facet=arr_libelle&facet=arr_insee",'geo_point_2d','adresse','arr_libelle','dist','Enfance','Ecoles')
+            this.apiCall("https://data.iledefrance.fr/api/records/1.0/search/?dataset=annuaire-de-leducation&facet=identifiant_de_l_etablissement&facet=nom_etablissement&facet=type_etablissement&facet=statut_public_prive&facet=code_postal&facet=code_commune&facet=nom_commune&facet=code_departement&facet=code_academie&facet=code_region&facet=ecole_maternelle&facet=ecole_elementaire&facet=voie_generale&facet=voie_technologique&facet=voie_professionnelle&facet=restauration&facet=hebergement&facet=ulis&facet=apprentissage&facet=segpa&facet=section_arts&facet=section_cinema&facet=section_theatre&facet=section_sport&facet=section_internationale&facet=section_europeenne&facet=lycee_agricole&facet=lycee_militaire&facet=lycee_des_metiers&facet=post_bac&facet=appartenance_education_prioritaire&facet=greta&facet=type_contrat_prive&facet=libelle_departement&facet=libelle_academie&facet=libelle_region&facet=nom_circonscription&facet=ministere_tutelle&facet=multi_uai&facet=rpi_concentre&facet=rpi_disperse&facet=code_nature&facet=libelle_nature&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'position','nom_etablissement','adresse_1','dist','Enfance','Ecoles')
         });
         serverBus.listen('showCommerce',()=>{    
-            this.apiCall("https://opendata.paris.fr/api/records/1.0/search/?dataset=commercesparis&facet=arro&facet=situation&facet=libact&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'geometry.coordinates','libact','adresse_complete','dist','Quotidien','Commerces')
+            this.apiCall("https://data.iledefrance.fr/api/records/1.0/search/?dataset=base-sirene-v3-ss&facet=etablissementsiege&facet=libellecommuneetablissement&facet=etatadministratifetablissement&facet=nomenclatureactiviteprincipaleetablissement&facet=caractereemployeuretablissement&facet=departementetablissement&facet=regionetablissement&facet=sectionetablissement&facet=classeetablissement&facet=statutdiffusionunitelegale&facet=unitepurgeeunitelegale&facet=sexeunitelegale&facet=categorieentreprise&facet=sectionunitelegale&facet=classeunitelegale&facet=naturejuridiqueunitelegale&refine.classeetablissement=Boulangerie+et+boulangerie-patisserie&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'geolocetablissement','denominationusuelleetablissement','classeetablissement','dist','Quotidien','Boulangeries');
+            this.apiCall("https://data.iledefrance.fr/api/records/1.0/search/?dataset=base-sirene-v3-ss&facet=etablissementsiege&facet=libellecommuneetablissement&facet=etatadministratifetablissement&facet=nomenclatureactiviteprincipaleetablissement&facet=caractereemployeuretablissement&facet=departementetablissement&facet=regionetablissement&facet=sectionetablissement&facet=classeetablissement&facet=statutdiffusionunitelegale&facet=unitepurgeeunitelegale&facet=sexeunitelegale&facet=categorieentreprise&facet=sectionunitelegale&facet=classeunitelegale&facet=naturejuridiqueunitelegale&refine.classeetablissement=Coiffure&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'geolocetablissement','denominationusuelleetablissement','classeetablissement','dist','Quotidien','Coiffeurs');
+            this.apiCall("https://data.iledefrance.fr/api/records/1.0/search/?dataset=base-sirene-v3-ss&facet=etablissementsiege&facet=libellecommuneetablissement&facet=etatadministratifetablissement&facet=nomenclatureactiviteprincipaleetablissement&facet=caractereemployeuretablissement&facet=departementetablissement&facet=regionetablissement&facet=sectionetablissement&facet=classeetablissement&facet=statutdiffusionunitelegale&facet=unitepurgeeunitelegale&facet=sexeunitelegale&facet=categorieentreprise&facet=sectionunitelegale&facet=classeunitelegale&facet=naturejuridiqueunitelegale&refine.classeetablissement=Commerce+de+detail+d%27habillement+en+magasin+specialise&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'geolocetablissement','denominationusuelleetablissement','classeetablissement','dist','Quotidien','Prêt à porter');
+            this.apiCall("https://data.iledefrance.fr/api/records/1.0/search/?dataset=base-sirene-v3-ss&facet=etablissementsiege&facet=libellecommuneetablissement&facet=etatadministratifetablissement&facet=nomenclatureactiviteprincipaleetablissement&facet=caractereemployeuretablissement&facet=departementetablissement&facet=regionetablissement&facet=sectionetablissement&facet=classeetablissement&facet=statutdiffusionunitelegale&facet=unitepurgeeunitelegale&facet=sexeunitelegale&facet=categorieentreprise&facet=sectionunitelegale&facet=classeunitelegale&facet=naturejuridiqueunitelegale&refine.classeetablissement=Commerce+d%27alimentation+generale&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'geolocetablissement','enseigne1etablissement','classeetablissement','dist','Quotidien','Alimentation');
         });
         serverBus.listen('showRestaurant',()=>{    
-            this.apiCall("https://opendata.paris.fr/api/records/1.0/search/?dataset=commercesparis&facet=arro&facet=situation&facet=libact&refine.libact=Brasserie+-+Restauration+continue+sans+tabac&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'geometry.coordinates','situation','adresse_complete','dist','Quotidien','Restaurants')
+            this.apiCall("https://data.iledefrance.fr/api/records/1.0/search/?dataset=base-sirene-v3-ss&facet=etablissementsiege&facet=libellecommuneetablissement&facet=etatadministratifetablissement&facet=nomenclatureactiviteprincipaleetablissement&facet=caractereemployeuretablissement&facet=departementetablissement&facet=regionetablissement&facet=sectionetablissement&facet=classeetablissement&facet=statutdiffusionunitelegale&facet=unitepurgeeunitelegale&facet=sexeunitelegale&facet=categorieentreprise&facet=sectionunitelegale&facet=classeunitelegale&facet=naturejuridiqueunitelegale&refine.classeunitelegale=Restauration+traditionnelle&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'geolocetablissement','denominationunitelegale','soussectionunitelegale','dist','Quotidien','Restaurants')
         });
         serverBus.listen('showSocialAction',()=>{    
             this.apiCall("https://data.iledefrance.fr/api/records/1.0/search/?dataset=finess&facet=libdepartement&facet=libcategetab&exclude.libcategetab=Pharmacie+d%27Officine&geofilter.distance="+this.currentPos.lat+'%2C'+this.currentPos.lng+'%2C'+1500,'geo','rslongue','adresse','dist','Quotidien','Action sociale')
@@ -90,71 +95,87 @@ export default{
         serverBus.listen('updateMap',(table)=>{
             this.layerGroup.clearLayers();
             var update=table.filter(element=>element.options.visible==true);
-            this.layerGroup=L.layerGroup(update).addTo(this.map);
-        });
-        serverBus.listen('changeGroup',(data)=>{
-            console.log("location mode changed");
-            this.locateChoice=data;
+            this.layerGroup=L.layerGroup(update).addTo(this.myMap);
         });
         serverBus.listen('hoverAlert',(data)=>{
             for(var items of this.globalPoints){
                 if(items.options.uniqueId==data[0] && data[1]==true){
                     //must change color before going live
                     items.setOpacity(1);
+                    items.openPopup();
                 }else if(items.options.uniqueId==data[0] && data[1]==false){
-                    items.setOpacity(0.8);
+                    items.setOpacity(0.6);
+                    items.closePopup();
                 }
             }
         });
+        serverBus.listen('switchLocation',(data)=>{
+            this.GPS=data;
+            if(this.GPS==true){
+                this.activeGPS();
+                this.myMap.removeControl(this.searchControl);
+            }else{
+                this.launchAdress();
+            }
+        });
+        serverBus.listen('addUserMarker',(coords)=>{
+            if(coords==null || coords==undefined){
+                coords=this.currentPos;
+            }
+            L.marker(coords).addTo(this.myMap);
+        });
+        serverBus.listen('setCurrentPos',(e)=>{
+            this.currentPos.lat=e.location.bounds[0][0];
+            this.currentPos.lng=e.location.bounds[0][1];
+        })
     },
     created(){
-        serverBus.listen('copyingMap',(myMap)=>{
-            this.myMap=myMap;
-        });
         serverBus.listen('changeCircleRange',(distance)=>{
             this.redrawCircleMap(distance);
         });
+        window.addEventListener('scroll',this.scrollMapEvent);
+        this.offset=window.pageOffset;
     },
     methods:{
         initMap(){
-            let lat = 51.505, long = -0.03;
-            const myMap=L.map('myMap');
-            myMap.locate({setView: true, maxZoom: 16});
+            let lat = 48.852969, long = 2.349903;
+            // const myMap=L.map('myMap');
+            this.myMap=L.map('myMap').setView([lat, long], 13);
+            // myMap.locate({setView: true, maxZoom: 16});
 
-            //myMap.dragging.disable();
-            //myMap.touchZoom.disable();
-            //myMap.doubleClickZoom.disable();
-            //myMap.scrollWheelZoom.disable();
-            //myMap.boxZoom.disable();
-            //myMap.keyboard.disable();
-            //if (map.tap) map.tap.disable();
+            // this.myMap.dragging.disable();
+            this.myMap.touchZoom.disable();
+            this.myMap.doubleClickZoom.disable();
+            this.myMap.scrollWheelZoom.disable();
+            this.myMap.boxZoom.disable();
+            this.myMap.keyboard.disable();
+            if (this.myMap.tap) this.myMap.tap.disable();
             
             L.tileLayer('https://{s}.tile.openstreetmap.se/hydda/full/{z}/{x}/{y}.png', {
                         // data origin
                         attribution: 'données <a href="http://openstreetmap.se/" target="_blank">OpenStreetMap Sweden</a> &mdash; Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
                         minZoom: 1,
                         maxZoom: 20
-                    }).addTo(myMap);
-            L.control.scale().addTo(myMap);
-            myMap.on('locationfound',function(e){
+                    }).addTo(this.myMap);
+            L.control.scale().addTo(this.myMap);
+
+            this.myMap.on('locationfound',function(e){
                 this.currentPos=e.latlng;
                 console.log("Position fixed");
                 serverBus.fire('locationFound',e.latlng);
-                serverBus.fire('copyingMap',myMap);
                 serverBus.fire('changeCircleRange',250);
-                serverBus.fire('alertMessage',['Vous êtes localisé aux coordonnées: ', e.latlng]);
-                L.marker(e.latlng).addTo(myMap);
+                // L.marker(e.latlng).addTo(this.myMap);
+                serverBus.fire('addUserMarker',e.latlng);
             });
-            myMap.on('onLocationError',function(e){
+            this.myMap.on('onLocationError',function(e){
                 serverBus.fire('alertMessage',['Nous ne pouvons pas vous localiser',]);
             });
-            myMap.on('geosearch/showlocation', function(e){
-                this.currentPos.lat=e.location.bounds[0][0];
-                this.currentPos.lng=e.location.bounds[0][1];
-                L.marker(this.currentPos).addTo(myMap);
+            this.myMap.on('geosearch/showlocation', function(e){
+                serverBus.fire('setCurrentPos',e);
+                // L.marker(this.currentPos).addTo(this.myMap);
+                serverBus.fire('addUserMarker',this.currentPos);
                 serverBus.fire('changeCircleRange',250);
             });
-            this.map=myMap;
         },
         getPos(){
             serverBus.listen('locationFound',(coordinates)=>{
@@ -164,6 +185,43 @@ export default{
         initLayers(){
             this.layerGroup=L.layerGroup();
             this.circleGroup=L.layerGroup();
+        },
+        activeGPS(){
+            this.myMap.locate({setView: true, maxZoom: 16});
+            this.myMap.on('locationfound',function(e){
+                this.currentPos=e.latlng;
+                console.log("Position fixed");
+                serverBus.fire('locationFound',e.latlng);
+                serverBus.fire('changeCircleRange',250);
+                serverBus.fire('alertMessage',['Vous êtes localisé aux coordonnées: ', e.latlng]);
+                // L.marker(e.latlng).addTo(this.myMap);
+                serverBus.fire('addUserMarker',e.latlng);
+            });
+            this.myMap.on('onLocationError',function(e){
+                serverBus.fire('alertMessage',['Nous ne pouvons pas vous localiser',]);
+            });
+            this.myMap.on('geosearch/showlocation', function(e){
+                serverBus.fire('setCurrentPos',e);
+                // L.marker(this.currentPos).addTo(this.myMap);
+                serverBus.fire('addUserMarker',this.currentPos);
+                serverBus.fire('changeCircleRange',250);
+            });
+            serverBus.fire('setToZero',);
+        },
+        launchAdress(){
+            this.searchControl=new GeoSearchControl({
+                    provider:this.provider,
+                    showMarker:false,
+                    retainZoomLevel:true,
+                    autoClose:true,
+                    keepResult:true,
+                    searchLabel: 'Entez une adresse',
+                });
+
+            this.myMap.addControl(this.searchControl);
+            var adressBar=this.$refs.map.querySelector('.glass');
+            adressBar.classList.add('input');
+            serverBus.fire('setToZero',);
         },
         apiCall(url,firstParam,secondParam,thirdParam,fourthParam,themeName,optionName){
             var requestAlreadyExist=this.checkResultExists(url);
@@ -258,11 +316,74 @@ export default{
             var result=this.findByName(this.globalResults,'name',url);
             for(var point of result.points){
                 var uniqueId=Math.floor(Math.random()*1000000000);
-                this.globalPoints.push(L.marker(point[firstParam],{request: url, first:point[secondParam],second:point[secondParam],third:point[thirdParam],fourth:point[fourthParam],uniqueId: uniqueId,visible:true, theme:point[fithParam],optionName:point[sixthParam]}).bindPopup(point[secondParam]+"<br>"+point[thirdParam]+"<br>"+point[fourthParam]));
+                var propertyName=Object.getOwnPropertyNames(point);
+                var iconColor=this.attributeColorMarker(fithParam);
+                this.globalPoints.push(L.marker(point[firstParam],{icon:iconColor, request: url, properties: propertyName, firstParam:point[secondParam],secondParam:point[secondParam],thirdParam:point[thirdParam],fourthParam:point[fourthParam],uniqueId: uniqueId,visible:true, theme:point[fithParam],optionName:point[sixthParam]}).bindPopup(point[secondParam]+"<br>"+point[fourthParam]+" mètres"));
+                
             }
             for(var i=0;i<this.globalPoints.length;i++){
                 //must be replaced with set icons when going live
-                this.globalPoints[i].setOpacity(0.8);
+                this.globalPoints[i].setOpacity(0.6);
+            }
+        },
+        attributeColorMarker(themeName){
+            var greenIcon = new L.Icon({
+                iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-green.png',
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            });
+            var redIcon = new L.Icon({
+                iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-red.png',
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            });
+            var yellowIcon = new L.Icon({
+                iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-yellow.png',
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            });
+            var violetIcon = new L.Icon({
+                iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-violet.png',
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            });
+            var blueIcon = new L.Icon({
+                iconUrl: 'https://cdn.rawgit.com/pointhi/leaflet-color-markers/master/img/marker-icon-blue.png',
+                shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/images/marker-shadow.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41]
+            });
+
+            switch(themeName){
+                case 'Transport':
+                    return yellowIcon;
+                    break;
+                case 'Santé':
+                    return greenIcon;
+                    break;
+                case 'Enfance':
+                    return violetIcon;
+                    break;
+                case 'Quotidien':
+                    return redIcon;
+                    break;
+                default:
+                    return blueIcon;
+                    break;
             }
         },
         updateMap(table){
@@ -304,35 +425,28 @@ export default{
             // };
             return newPoint;
         },
-        launchAdress(){
-            const searchControl=new GeoSearchControl({
-                    provider:this.provider,
-                    showMarker:false,
-                    retainZoomLevel:true,
-                    autoClose:true,
-                    keepResult:true,
-                    searchLabel: 'Entez une adresse',
-                });
-            this.map.addControl(searchControl);
-        },
     },
     data(){
         return{
             globalResults:[],
             globalPoints:[],
-            map:null,
             layerGroup:null,
             circleGroup:null,
             distance:null,
-            currentPos:1,
-            locateChoice:'GPS',
-            provider:new OpenStreetMapProvider(),
+            currentPos:{
+                lat:0,
+                lng:0
+                },
+            provider:new OpenStreetMapProvider({params:{countrycodes:'FR'},}),
+            GPS:false,
+            myMap:null,
+            searchControl:null,
         }
     },
     components:{
         LMap,
         LTileLayer,
-        LMarker
+        LMarker,
     }
 }
 
@@ -340,12 +454,37 @@ export default{
 
 <style>
 #myMap{
-        height: 60vh;
-        margin-top:80px;
-    }
+    height: 60vh;
+    margin-top:5px;
+    position:sticky!important;
+}
+
+.sticky{
+    position:fixed!important;
+    top:0!important;
+}
 
 .leaflet-control-geosearch{
     background-color:white !important;
+}
+
+.geosearch{
+    position:absolute!important;
+    min-width:350px!important;
+    left:100%!important;
+}
+
+.control{
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width:90% !important;
+}
+
+@media screen and (max-width: 800px) {
+    #myMap{
+        height: 40vh;
+        margin-top:0px;
+    }
 }
 </style>
 

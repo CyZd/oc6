@@ -2,7 +2,7 @@
 <div class="container">
 
     <badger-accordion v-if="catOne.length!=0" >
-        <badger-accordion-item class="message is-primary">
+        <badger-accordion-item class="message is-info">
             <template slot="header" class="message-header">{{catOneName}}</template>    
             <template slot="content" class="message-body"><div v-for="item in catOne" class="message-body"
                     @mouseover="hoverAlert(item.options.uniqueId,true)" 
@@ -12,20 +12,20 @@
                         <nav class="level">
                             <div class="level-item has-text-centered">
                                 <div>
-                                    <p class="heading">nom</p>
-                                    <p class="subtitle">{{item.options.first}}</p>
+   
+                                    <p class="subtitle">{{item.options.firstParam}}</p>
                                 </div>
                             </div>
                             <div class="level-item has-text-centered">
                                 <div> 
                                     <p class="heading">distance</p>
-                                    <p class="subtitle">{{item.options.fourth}} mètres de vous</p>
+                                    <p class="subtitle">{{item.options.fourthParam}} mètres de vous</p>
                                 </div>
                             </div>
                             <div class="level-item has-text-centered">
                                 <div>
-                                    <p class="heading"></p>
-                                    <p class="subtitle">{{item.options.second}}</p>
+
+                                    <p class="subtitle">{{item.options.thirdParam}}</p>
                                 </div>
                             </div>
                         </nav>
@@ -36,7 +36,7 @@
     </badger-accordion>
 
     <badger-accordion v-if="catTwo.length!=0" >
-        <badger-accordion-item class="message is-primary">
+        <badger-accordion-item class="message is-info">
             <template slot="header" class="message-header">{{catTwoName}}</template>    
             <template slot="content" class="message-body"><div v-for="item in catTwo" class="message-body"
                     @mouseover="hoverAlert(item.options.uniqueId,true)" 
@@ -46,20 +46,20 @@
                         <nav class="level">
                             <div class="level-item has-text-centered">
                                 <div>
-                                    <p class="heading">nom</p>
-                                    <p class="subtitle">{{item.options.first}}</p>
+
+                                    <p class="subtitle">{{item.options.firstParam}}</p>
                                 </div>
                             </div>
                             <div class="level-item has-text-centered">
                                 <div> 
                                     <p class="heading">distance</p>
-                                    <p class="subtitle">{{item.options.fourth}} mètres de vous</p>
+                                    <p class="subtitle">{{item.options.fourthParam}} mètres de vous</p>
                                 </div>
                             </div>
                             <div class="level-item has-text-centered">
                                 <div>
-                                    <p class="heading"></p>
-                                    <p class="subtitle">{{item.options.second}}</p>
+
+                                    <p class="subtitle">{{item.options.thirdParam}}</p>
                                 </div>
                             </div>
                         </nav>
@@ -71,7 +71,7 @@
 
 
     <badger-accordion v-if="catThree.length!=0" >
-        <badger-accordion-item class="message is-primary">
+        <badger-accordion-item class="message is-info">
             <template slot="header" class="message-header">{{catThreeName}}</template>    
             <template slot="content" class="message-body"><div v-for="item in catThree" class="message-body"
                     @mouseover="hoverAlert(item.options.uniqueId,true)" 
@@ -81,20 +81,20 @@
                         <nav class="level">
                             <div class="level-item has-text-centered">
                                 <div>
-                                    <p class="heading">nom</p>
-                                    <p class="subtitle">{{item.options.first}}</p>
+
+                                    <p class="subtitle">{{item.options.firstParam}}</p>
                                 </div>
                             </div>
                             <div class="level-item has-text-centered">
                                 <div> 
                                     <p class="heading">distance</p>
-                                    <p class="subtitle">{{item.options.fourth}} mètres de vous</p>
+                                    <p class="subtitle">{{item.options.fourthParam}} mètres de vous</p>
                                 </div>
                             </div>
                             <div class="level-item has-text-centered">
                                 <div>
-                                    <p class="heading"></p>
-                                    <p class="subtitle">{{item.options.second}}</p>
+
+                                    <p class="subtitle">{{item.options.thirdParam}}</p>
                                 </div>
                             </div>
                         </nav>
@@ -105,7 +105,7 @@
     </badger-accordion>
 
     <badger-accordion v-if="catFour.length!=0" >
-        <badger-accordion-item class="message is-primary">
+        <badger-accordion-item class="message is-info">
             <template slot="header" class="message-header">{{catFourName}}</template>    
             <template slot="content" class="message-body"><div v-for="item in catFour" class="message-body"
                     @mouseover="hoverAlert(item.options.uniqueId,true)" 
@@ -115,20 +115,54 @@
                         <nav class="level">
                             <div class="level-item has-text-centered">
                                 <div>
-                                    <p class="heading">nom</p>
-                                    <p class="subtitle">{{item.options.first}}</p>
+
+                                    <p class="subtitle">{{item.options.firstParam}}</p>
                                 </div>
                             </div>
                             <div class="level-item has-text-centered">
                                 <div> 
                                     <p class="heading">distance</p>
-                                    <p class="subtitle">{{item.options.fourth}} mètres de vous</p>
+                                    <p class="subtitle">{{item.options.fourthParam}} mètres de vous</p>
                                 </div>
                             </div>
                             <div class="level-item has-text-centered">
                                 <div>
-                                    <p class="heading"></p>
-                                    <p class="subtitle">{{item.options.second}}</p>
+
+                                    <p class="subtitle">{{item.options.thirdParam}}</p>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+            </template>  
+        </badger-accordion-item>
+
+    </badger-accordion>
+
+    <badger-accordion v-if="catFive.length!=0" >
+        <badger-accordion-item class="message is-info">
+            <template slot="header" class="message-header">{{catFiveName}}</template>    
+            <template slot="content" class="message-body"><div v-for="item in catFive" class="message-body"
+                    @mouseover="hoverAlert(item.options.uniqueId,true)" 
+                    @mouseleave="hoverAlert(item.options.uniqueId,false)"
+                    :class="{active: hover && itemRef==item.options.uniqueId}"
+                    > 
+                        <nav class="level">
+                            <div class="level-item has-text-centered">
+                                <div>
+
+                                    <p class="subtitle">{{item.options.firstParam}}</p>
+                                </div>
+                            </div>
+                            <div class="level-item has-text-centered">
+                                <div> 
+                                    <p class="heading">distance</p>
+                                    <p class="subtitle">{{item.options.fourthParam}} mètres de vous</p>
+                                </div>
+                            </div>
+                            <div class="level-item has-text-centered">
+                                <div>
+
+                                    <p class="subtitle">{{item.options.thirdParam}}</p>
                                 </div>
                             </div>
                         </nav>
@@ -139,110 +173,6 @@
     </badger-accordion>
 
 
-        <!-- <div v-if="catTwo.length!=0" class="container">
-            <article class="message is-primary" :class="accordionClasses">
-                <div class="message-header" @click="toggleAccordion">
-                    <p>{{catTwoName}}</p>
-                </div>
-                    <div v-for="item in catTwo" class="message-body"
-                    @mouseover="hoverAlert(item.options.uniqueId,true)" 
-                    @mouseleave="hoverAlert(item.options.uniqueId,false)"
-                    :class="{active: hover && itemRef==item.options.uniqueId}"
-                    > 
-                        <nav class="level" :class="accordionClasses">
-                            <div class="level-item has-text-centered" :class="accordionClasses">
-                                <div :class="accordionClasses">
-                                    <p class="heading" :class="accordionClasses">nom</p>
-                                    <p class="subtitle" :class="accordionClasses">{{item.options.first}}</p>
-                                </div>
-                            </div>
-                            <div class="level-item has-text-centered" :class="accordionClasses">
-                                <div :class="accordionClasses"> 
-                                    <p class="heading" :class="accordionClasses">distance</p>
-                                    <p class="subtitle" :class="accordionClasses">{{item.options.fourth}} mètres de vous</p>
-                                </div>
-                            </div>
-                            <div class="level-item has-text-centered" :class="accordionClasses">
-                                <div :class="accordionClasses">
-                                    <p class="heading" :class="accordionClasses"></p>
-                                    <p class="subtitle" :class="accordionClasses">{{item.options.second}}</p>
-                                </div>
-                            </div>
-                        </nav>
-                    </div>
-
-            </article>
-        </div>
-
-        <div v-if="catThree.length!=0" class="container">
-            <article class="message is-primary" :class="accordionClasses">
-                <div class="message-header" @click="toggleAccordion">
-                    <p>{{catThreeName}}</p>
-                </div>
-                    <div v-for="item in catThree" class="message-body"
-                    @mouseover="hoverAlert(item.options.uniqueId,true)" 
-                    @mouseleave="hoverAlert(item.options.uniqueId,false)"
-                    :class="{active: hover && itemRef==item.options.uniqueId}"
-                    > 
-                        <nav class="level" :class="accordionClasses">
-                            <div class="level-item has-text-centered" :class="accordionClasses">
-                                <div :class="accordionClasses">
-                                    <p class="heading" :class="accordionClasses">nom</p>
-                                    <p class="subtitle" :class="accordionClasses">{{item.options.first}}</p>
-                                </div>
-                            </div>
-                            <div class="level-item has-text-centered" :class="accordionClasses">
-                                <div :class="accordionClasses"> 
-                                    <p class="heading" :class="accordionClasses">distance</p>
-                                    <p class="subtitle" :class="accordionClasses">{{item.options.fourth}} mètres de vous</p>
-                                </div>
-                            </div>
-                            <div class="level-item has-text-centered" :class="accordionClasses">
-                                <div :class="accordionClasses">
-                                    <p class="heading" :class="accordionClasses"></p>
-                                    <p class="subtitle" :class="accordionClasses">{{item.options.second}}</p>
-                                </div>
-                            </div>
-                        </nav>
-                    </div>
-
-            </article>
-        </div>
-
-        <div v-if="catFour.length!=0" class="container">
-            <article class="message is-primary" :class="accordionClasses">
-                <div class="message-header" @click="toggleAccordion">
-                    <p>{{catFourName}}</p>
-                </div>
-                    <div v-for="item in catFour" class="message-body"
-                    @mouseover="hoverAlert(item.options.uniqueId,true)" 
-                    @mouseleave="hoverAlert(item.options.uniqueId,false)"
-                    :class="{active: hover && itemRef==item.options.uniqueId}"
-                    > 
-                        <nav class="level" :class="accordionClasses">
-                            <div class="level-item has-text-centered" :class="accordionClasses">
-                                <div :class="accordionClasses">
-                                    <p class="heading" :class="accordionClasses">nom</p>
-                                    <p class="subtitle" :class="accordionClasses">{{item.options.first}}</p>
-                                </div>
-                            </div>
-                            <div class="level-item has-text-centered" :class="accordionClasses">
-                                <div :class="accordionClasses"> 
-                                    <p class="heading" :class="accordionClasses">distance</p>
-                                    <p class="subtitle" :class="accordionClasses">{{item.options.fourth}} mètres de vous</p>
-                                </div>
-                            </div>
-                            <div class="level-item has-text-centered" :class="accordionClasses">
-                                <div :class="accordionClasses">
-                                    <p class="heading" :class="accordionClasses"></p>
-                                    <p class="subtitle" :class="accordionClasses">{{item.options.second}}</p>
-                                </div>
-                            </div>
-                        </nav>
-                    </div>
-
-            </article>
-        </div> -->
 </div>
 
     
@@ -265,6 +195,20 @@ export default {
             this.showGroupResults(this.group,this.results);
             this.getCatNames();
         });
+        serverBus.listen('setToZero',()=>{
+            this.results=null;
+            this.toShow=null;
+            this.catOne=[];
+            this.catOneName=null;
+            this.catTwo=[];
+            this.catTwoName=null;
+            this.catThree=[];
+            this.catThreeName=null;
+            this.catFour=[];
+            this.catFourName=null;
+            this.catFive=[];
+            this.catFiveName=null;
+        })
     },
     methods:{
         showGroupResults:function(group,results){
@@ -298,10 +242,11 @@ export default {
                     case 3:
                         var filterTheme=results.filter(element=>element.options.theme=="Quotidien");
                         this.toShow=filterTheme.filter(element=>element.options.visible==true);
-                        this.catOne=this.toShow.filter(element=>element.options.optionName=="Commerces");
+                        this.catOne=this.toShow.filter(element=>element.options.optionName=="Boulangeries" || element.options.optionName=="Coiffeurs" || element.options.optionName=="Prêt à porter" || element.options.optionName=="Alimentation");
                         this.catTwo=this.toShow.filter(element=>element.options.optionName=="Restaurants");
                         this.catThree=this.toShow.filter(element=>element.options.optionName=="Action sociale");
-                        this.catFour=this.toShow.filter(element=>element.options.optionName=="Sport et Culture");
+                        this.catFour=this.toShow.filter(element=>element.options.optionName=="Sport");
+                        this.catFive=this.toShow.filter(element=>element.options.optionName=="Bibliothèques" || element.options.optionName=="Etablissements culturels" || element.options.optionName=="Cinémas");
                         this.getCatNames();
                         break;
                 }
@@ -314,11 +259,20 @@ export default {
             serverBus.fire('hoverAlert',[uniqueId,boolean]);
         },
         getCatNames:function(){
-            this.catOne.length!=0 ? this.catOneName=this.catOne[0].options.optionName : null;
+            if(this.catOne.length!=0){
+                if(this.catOne[0].options.optionName=="Boulangeries" || this.catOne[0].options.optionName=="Coiffeurs" || this.catOne[0].options.optionName=="Prêt à porter" || this.catOne[0].options.optionName=="Alimentation"){
+                    this.catOneName="Commerces";
+                }else{
+                    this.catOneName=this.catOne[0].options.optionName;
+                }
+            }else{
+                this.catOneName=null;
+            }
             this.catTwo.length!=0 ? this.catTwoName=this.catTwo[0].options.optionName : null;
             this.catThree.length!=0 ? this.catThreeName=this.catThree[0].options.optionName : null;
             this.catFour.length!=0 ? this.catFourName=this.catFour[0].options.optionName : null;
-        }
+            this.catFive.length!=0 ? this.catFiveName="Ou sortir?" : null;
+        },
     },
     data(){
         return{
@@ -335,6 +289,8 @@ export default {
             catThreeName:null,
             catFour:[],
             catFourName:null,
+            catFive:[],
+            catFiveName:null,
             isOpen:true,
         }
     },
@@ -348,10 +304,11 @@ export default {
     border-style:solid;
     border-width:1px;
     margin:3px!important;
+    overflow:hidden!important;
 }
 
 .message-body.active{
-    background-color:hsl(171, 100%, 41%)!important;
+    background-color:#5db7ec!important;
 }
 
 .message-header{
@@ -374,12 +331,7 @@ export default {
     padding: 0!important;
 }
 
-dt.badger-accordion_header{
-
-}
-
 .badger-accordion-toggle{
-    background-color:hsl(171, 100%, 41%)!important;
     font-style: bold;
     color:white;
     padding:1px;
@@ -387,9 +339,22 @@ dt.badger-accordion_header{
 }
 
 .badger-toggle-indicator{
-    background-color:hsl(171, 100%, 41%)!important;
     font-style: bold;
     color:white;
     padding:1px;
+}
+
+.subtitle{
+    font-size:0.9rem !important;
+}
+
+.badger-accordion-toggle, .badger-toggle-indicator{
+    background-color:#5db7ec!important;
+}
+
+.js-badger-accordion-panel-inner{
+    max-height:160px!important;
+    overflow:scroll!important;
+    overflow-x: hidden!important;
 }
 </style>

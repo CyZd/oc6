@@ -7,6 +7,7 @@
 			<myMap></myMap>
 			<selectpannel></selectpannel>
 			<infopannel></infopannel>
+
 		</body>
 
 	</div>
@@ -51,6 +52,14 @@ export default{
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 20px;
 }
+
+.navbar{
+	position:sticky!important;
+	position: -webkit-sticky!important;
+	top: 0;
+}
+
+
 </style>

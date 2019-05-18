@@ -1,7 +1,9 @@
 <template>
 <div>
-    <div v-for="item in messageStack" class="notification is-primary">
-        {{item.message}}{{item.info}}
+    <div class="messageStack">
+        <div v-for="item in messageStack" class="notification is-info">
+            {{item.message}}{{item.info}}
+        </div>
     </div>
 </div>
 </template>
@@ -24,7 +26,7 @@ export default{
             this.messageStack.push(newMessage);
             setTimeout(() => {
                 this.messageStack.shift();
-            }, 1800);
+            }, 1200);
         });
     },
     methods:{
@@ -34,7 +36,10 @@ export default{
 </script>
 
 <style>
-.notification{
-
+.messageStack{
+    position:absolute!important;
+    top:45% !important;
+    left:30%;
+    z-index:1600 !important;
 }
 </style>

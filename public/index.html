@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <link rel="icon" href="<%= BASE_URL %>favicon.ico">
+    <link rel="icon" href="<%= BASE_URL %>marker-icon.ico">
 
   </script>
     <title>appsecondversion</title>
@@ -16,5 +16,26 @@
     </noscript>
     <div id="app"></div>
     <!-- built files will be auto injected -->
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+    <!-- Firebase App (the core Firebase SDK) is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/6.0.2/firebase-app.js"></script>
+
+    <!-- Add Firebase products that you want to use -->
+
+
+    <script>
+    var firebaseConfig={
+      apiKey: "AIzaSyCO69mZaMSUHk5oM5QV5bQ6s5ZFbaZsNNY",
+      authDomain: "barriada-547bb.firebaseapp.com",
+      databaseURL: "https://barriada-547bb.firebaseio.com",
+      projectId: "barriada-547bb",
+      storageBucket: "barriada-547bb.appspot.com",
+      messagingSenderId: "478405323502",
+      appId: "1:478405323502:web:7017ae385f357c20"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    </script>
   </body>
 </html>

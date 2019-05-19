@@ -486,5 +486,27 @@ export default{
         margin-top:0px;
     }
 }
+
+@media screen and (max-width: 400px){
+    .geosearch{
+        width:140px!important;
+        min-width:20px!important;
+    }
+
+    form{
+        max-width:140px!important;
+    }
+}
+
+@media screen and (max-width: 250px){
+    .geosearch{
+        width:100px!important;
+        min-width:20px!important;
+    }
+
+    form{
+        max-width:100px!important;
+    }
+}
 </style>
 

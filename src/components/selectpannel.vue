@@ -323,5 +323,35 @@ export default{
         height: 30px!important;
         width: 100px!important;
     }
+
+}
+
+@media screen and (max-width: 400px) {
+    body{
+      width:90%!important;
+      margin-left: auto!important;
+      margin-right: auto!important;
+    }
+
+}
+
+@media screen and (max-width: 300px) {
+    body{
+      /* width:70%!important; */
+      margin-left:auto!important;
+      margin-right:auto!important;
+      left:2%!important;
+      right:2%!important;
+    }
+}
+
+@media screen and (max-width: 250px) {
+    body{
+      width:80%!important;
+      left: 0!important;
+      margin-left:1%!important;
+      margin-right:1%!important;
+
+    }
 }
 </style>

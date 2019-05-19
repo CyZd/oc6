@@ -39,7 +39,29 @@ export default{
 .messageStack{
     position:absolute!important;
     top:45% !important;
-    left:30%;
+    left:30%!important;
+    right:30%!important;
     z-index:1600 !important;
+}
+
+@media screen and (max-width: 800px) {
+    .messageStack{
+        position:absolute!important;
+        top:45% !important;
+        left:10%!important;
+        right:10%!important;
+        margin-left:auto!important;
+        margin-right:auto!important;
+        z-index:1600 !important;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .messageStack{
+        position:absolute!important;
+        top:45% !important;
+        left:0.5%!important;
+        z-index:1600 !important;
+    }
 }
 </style>

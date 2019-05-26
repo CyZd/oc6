@@ -1,4 +1,4 @@
-export default{
+export default {
   install: function(Vue) {
     Vue.prototype.apiCall = function(
       url,
@@ -99,7 +99,10 @@ export default{
       result = findByName(globalResults, "name", url);
       for (point of result.points) {
         globalPoints.push(
-          L.marker(point[firstParam], { uniqueID: url, visible: true }).bindPopup(
+          L.marker(point[firstParam], {
+            uniqueID: url,
+            visible: true
+          }).bindPopup(
             point[secondParam] +
               "<br>" +
               point[thirdParam] +
@@ -165,7 +168,4 @@ export default{
       myMap.fitBounds(newCircle.getBounds());
     };
   }
-
-  
-}
-
+};

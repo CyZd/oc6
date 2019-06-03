@@ -57,6 +57,7 @@ export default {
 </script>
 
 <style lang="scss">
+
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -86,10 +87,11 @@ body{
 }
 
 .blue, .green, .violet, .red{
-  transition: all .8s ease-in!important;
-  -webkit-transition: all .8s ease-in!important;
-  -moz-transition: all .8s ease-in!important;
-  -o-transition: all .8s ease!important;
+  transition: all .4s ease-in!important;
+  -webkit-transition: all .4s ease-in!important;
+  -moz-transition: all .4s ease-in!important;
+  -o-transition: all .4s ease!important;
+  background-size: cover!important;
 }
 
 .blue{

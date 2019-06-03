@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container" v-bind:class="colorGroup[group]">
     <badger-accordion v-if="catOne.length != 0">
       <badger-accordion-item class="message is-info">
         <template slot="header" class="message-header">{{
@@ -364,7 +364,14 @@ export default {
       catFourName: null,
       catFive: [],
       catFiveName: null,
-      isOpen: true
+      isOpen: true,
+      colorGroup:[
+        'blue',
+        'green',
+        'violet',
+        'red',
+      ],
+
     };
   }
 };
@@ -375,8 +382,10 @@ export default {
   border-style: solid;
   border-width: 1px;
   margin: 3px !important;
-  overflow: hidden !important;
+  /* overflow: hidden !important; */
 }
+
+
 
 .message-body.active {
   background-color: #5db7ec !important;
@@ -432,5 +441,32 @@ export default {
 
 .level{
   border: #5db7ec solid 2px;
+}
+
+.blue, .green, .violet, .red{
+  transition: all .4s ease-in!important;
+  -webkit-transition: all .4s ease-in!important;
+  -moz-transition: all .4s ease-in!important;
+  -o-transition: all .4s ease!important;
+}
+
+.blue{
+  background-color: rgba(33,180,226,1)!important;
+  min-width: 100%!important;
+}
+
+.green{
+  background-color: rgba(111,214,73,1)!important;
+  min-width: 100%!important;
+}
+
+.violet{
+  background-color: rgba(194,0,188,1)!important;
+  min-width: 100%!important;
+}
+
+.red{
+  background-color: rgba(240,47,23,1)!important;
+  min-width: 100%!important;
 }
 </style>

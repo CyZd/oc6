@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar" role="navigation" aria-label="main navigation">
+  <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
     <div class="navbar-brand">
       <a class="navbar-item" href="">
         <img src="../assets/marker3.jpg" width="30" height="50" />
@@ -102,17 +102,23 @@ export default {
 } */
 
 .navbar {
-  position: sticky !important;
-  position: -webkit-sticky !important;
+  position: absolute !important;
+  /* position: -webkit-sticky !important; */
 }
 
 .navbar-menu{
   background-color: transparent!important;
+  z-index:800!important;
 }
 
 .navbar-brand {
   width: 50px !important;
   height: 50px !important;
+}
+
+nav{
+  z-index:1800!important;
+  position: absolute !important;
 }
 
 .navbar-burger {

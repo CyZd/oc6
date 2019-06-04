@@ -2,6 +2,7 @@
   <div id="app">
     <body v-bind:class="colorGroup[group]">
       <navbar></navbar>
+      <sidebar></sidebar>
       <messageSystem></messageSystem>
       <myMap></myMap>
       <selectpannel></selectpannel>
@@ -18,6 +19,7 @@ import infopannel from "./components/infopannel.vue";
 import { ToggleButton } from "vue-js-toggle-button";
 import messageSystem from "./components/messageSystem.vue";
 import { BadgerAccordion, BadgerAccordionItem } from "vue-badger-accordion";
+import sidebar from "./components/sidebar.vue";
 
 import Vue from "vue";
 
@@ -34,7 +36,8 @@ export default {
     selectpannel: selectpannel,
     infopannel: infopannel,
     VueFlashMessage: VueFlashMessage,
-    messageSystem: messageSystem
+    messageSystem: messageSystem,
+    sidebar:sidebar,
   },
   mounted(){
     serverBus.listen("changeGroup", group => {

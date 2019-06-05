@@ -807,6 +807,10 @@ export default {
   background-color: white !important;
 }
 
+.leaflet-control-zoom{
+  display:none;
+}
+
 .geosearch {
   position: absolute !important;
   min-width: 350px !important;
@@ -817,6 +821,13 @@ export default {
   margin-left: auto !important;
   margin-right: auto !important;
   width: 90% !important;
+}
+
+
+@media screen and (max-width: 1090px) {
+  .geosearch {
+    transform:scale(0.6)!important;
+  }
 }
 
 @media screen and (max-width: 800px) {
@@ -830,7 +841,6 @@ export default {
   }
 
   .geosearch {
-    transform:scale(0.6)!important;
     left: 1% !important;
     }
 }

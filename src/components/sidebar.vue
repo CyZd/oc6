@@ -1,28 +1,23 @@
 <template>
-    <nav class="panel">
-        <p class="panel-heading">
-            repositories
-        </p>
+    <nav class="panel is-offset-10" id="sidebar">
+        <!-- <p class="panel-heading"> -->
+            <img src="../assets/marker3.jpg" width="30" height="50" />
+        <!-- </p> -->
         <div class="panel-block">
-            <p class="control has-icons-left">
-            <input class="input is-small" type="text" placeholder="search">
-            <span class="icon is-small is-left">
-                <i class="fas fa-search" aria-hidden="true"></i>
-            </span>
-            </p>
         </div>
-        <p class="panel-tabs">
+        <!-- <p class="panel-tabs">
             <a class="is-active">all</a>
             <a>public</a>
             <a>private</a>
             <a>sources</a>
             <a>forks</a>
-        </p>
-        <a class="panel-block is-active">
-            <span class="panel-icon">
-                <i class="fas fa-book" aria-hidden="true"></i>
-            </span>
-            bulma
+        </p> -->
+        <a
+          v-for="button in buttons"
+          v-on:click="changeGroup(buttons.indexOf(button))"
+          class="panel-block is-active"
+        >
+          <p class="subtitle is-4">{{ button }}</p>
         </a>
     </nav>
 </template>
@@ -41,6 +36,7 @@ export default {
       serverBus.fire("changeGroup", this.group);
     },
   },
+  //check is the following fuunction doesn't reset interface a second time
   mounted() {
     serverBus.fire("changeGroup", this.group);
   }
@@ -48,6 +44,46 @@ export default {
 </script>
 
 <style>
+#sidebar{
+  width:5%!important;
+  height:99%;
+  background-color:white;
+  position:absolute!important;
+  top:0;
+}
 
+.panel>img{
+  margin-top:8px;
+}
+
+#sidebar>.panel-block>p{
+  transform:scale(0.1);
+  opacity:0;
+}
+
+.panel-block{
+  border-bottom:0px!important;
+}
+
+#sidebar:hover{
+  transition: all .4s ease-in!important;
+  -webkit-transition: all .4s ease-in!important;
+  -moz-transition: all .4s ease-in!important;
+  -o-transition: all .4s ease!important;
+  width:20%!important;
+}
+
+#sidebar:hover *{
+  transition: opacity .5s ease-in!important;
+  opacity:1!important;
+  transform:scale(1)!important;
+}
+
+@media screen and (min-width: 1090px) {
+  #sidebar, #sidebar * {
+    display:none!important;
+
+  }
+}
 </style>
 

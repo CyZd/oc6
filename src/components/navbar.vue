@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation">
+  <nav class="navbar is-fixed-top" role="navigation" aria-label="main navigation" id="barMain">
     <div class="navbar-brand">
       <a class="navbar-item" href="">
         <img src="../assets/marker3.jpg" width="30" height="50" />
@@ -101,9 +101,14 @@ export default {
   background-color: transparent!important;
 } */
 
-.navbar {
+.navbar{
   position: absolute !important;
   /* position: -webkit-sticky !important; */
+
+}
+
+nav:hover{
+  filter: drop-shadow(4px 8px 4px #9b9b9b);
 }
 
 .navbar-menu{
@@ -130,6 +135,16 @@ nav{
 #gpsmod{
   left: 650%!important;
   top:15%!important;
+}
+
+@media screen and (max-width: 1090px) {
+  .burger{
+    display:none!important;
+  }
+
+  .navbar-item{
+    display:none!important;
+  }
 }
 
 @media screen and (max-width: 1300px) {
